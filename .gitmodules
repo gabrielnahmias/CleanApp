@@ -1,0 +1,9 @@
+[submodule "assets/js/leaflet/plugins/storage"]
+	path = assets/js/leaflet/plugins/storage
+	url = https://github.com/yohanboniface/Leaflet.Storage.git
+[submodule "assets/js/shorty"]
+	path = assets/js/shorty
+	url = git@github.com:gabrielnahmias/jquery-shorty.git
+[submodule "assets/js/Console"]
+	path = assets/js/Console
+	url = git@github.com:gabrielnahmias/Console.js.git
