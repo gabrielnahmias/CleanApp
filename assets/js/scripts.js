@@ -4,7 +4,7 @@ var CA = {
 		const: {
 			CM_ATTR: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 					 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-					 'Imagery © <a href="http://cloudmade.com">CloudMade</a>',	
+					 'Imagery © <a href="http://cloudmade.com">CloudMade</a>',
 			URL_CM: 'http://{s}.tile.cloudmade.com/d4fc77ea4a63471cab2423e66626cbb6/{styleId}/256/{z}/{x}/{y}.png',
 			URL_OSM: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			/*OSM_ATTRIB: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/
@@ -12,6 +12,30 @@ var CA = {
 	},
 	utils: {}
 };
+if (!Number.prototype.getDecimals) {
+	Number.prototype.getDecimals = function() {
+		var num = this,
+			match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+		if (!match)
+			return 0;
+		return Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
+	}
+}
+if (!Number.prototype.hasDecimal) {
+	Number.prototype.hasDecimal = function() {
+		return this % 1 !== 0;
+	}
+}
+if (!Number.prototype.isInt) {
+	Number.prototype.isInt = function() {
+		return this % 1 === 0;
+	}
+}
+if (!String.prototype.getDecimals) {
+	String.prototype.getDecimals = function() {
+		return parseFloat(this).getDecimals();
+	}
+}
 if (!String.prototype.reduce) {
 	String.prototype.reduce = function() {
 		var str = this,
