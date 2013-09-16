@@ -1,47 +1,32 @@
 <?php
-// Basic
-define("NAME", "CleanApp");
+require "common.php";
 
-// Versions
-define("VER", "2.0");
-define("VER_JQ", "1.10.2");
-define("VER_JQUI", "1.10.3");
 
-// Directories
-define("DIR_ASSETS", "assets");
-define("DIR_CSS", DIR_ASSETS."/css");
-define("DIR_DATA", DIR_ASSETS."/data");
-define("DIR_IMG", DIR_ASSETS."/img");
-define("DIR_JS", DIR_ASSETS."/js");
-define("DIR_CON", DIR_JS."/Console");
-define("DIR_JQUI", DIR_JS."/jquery-ui");
-define("DIR_LEAF", DIR_JS."/leaflet");
-define("DIR_LEAF_PLUG", DIR_JS."/leaflet/plugins");
 
-// Files
-define("FILE_WORLD", DIR_DATA."/world.geojson");
-
-// Get a list of IDs from the world file.
-$world = json_decode(file_get_contents(FILE_WORLD));
-$ids = array();
-foreach ($world as $collection) {
-	$features = $collection->features;
-	foreach ($features as $feature) {
-		$id = $feature->id;
-		array_push($ids, $id);
-	}
+// Get a list of IDs and their data from the world file.
+$collection = json_decode(file_get_contents(FILE_WORLD));
+//file_put_contents("collection.txt", print_r($collection, true));
+$countryInfo = array();
+foreach ($collection->features as $feature) {
+	$id = $feature->id;
+	$countryInfo[$id] = array(				// Use OSM ID as index in the future.
+					"registered" => true,	// Check the DB for this ID and if it's been taken.
+					"properties" => array(
+						"name" => $feature->properties->name
+					)
+				);
 }
-?><!-- <?php //print_r($ids, true)?> --><!doctype html>
+?><!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title><?=NAME?></title>
+<title><?=TITLE?></title>
 <link rel="shortcut icon" href="<?=DIR_IMG?>/favicon.ico">
 <!-- normalize.css -->
 <link rel="stylesheet" href="<?=DIR_CSS?>/normalize.min.css" type="text/css">
 <!-- Console.js -->
-<script src="<?=DIR_CON?>/Console.min.js" type="text/javascript"></script>
+<script src="<?=DIR_CON?>/Console.js" type="text/javascript"></script>
 <!-- jQuery -->
 <script src="<?=DIR_JS?>/jquery-<?=VER_JQ?>.min.js" type="text/javascript"></script>
 <!-- jQuery UI -->
@@ -54,7 +39,7 @@ foreach ($world as $collection) {
 <!--[if lte IE 8]><link rel="stylesheet" href="<?=DIR_LEAF?>/leaflet.ie.css" /><![endif]-->
 <script src="<?=DIR_LEAF?>/leaflet.js" type="text/javascript"></script>
 <!-- Map assets -->
-<script src="<?=FILE_WORLD?>" type="text/javascript"></script>
+<script src="<?=FILE_GETWORLD?>" type="text/javascript"></script>
 <script src="<?=DIR_LEAF_PLUG?>/Leaflet.TileLayer.Common.js" type="text/javascript"></script>
 <!-- Proprietary -->
 <link rel="stylesheet" href="<?=DIR_CSS?>/styles.css" type="text/css">
@@ -62,12 +47,10 @@ foreach ($world as $collection) {
 <script type="text/javascript">
 (function($) {
 	$(function() {
-		var map = L.map('map', {
+		var map  = L.map('map', {
 				attributionControl: false
 			}),
-			featureData = {},
-			worldData = "";
-	
+			featureData = <?=json_encode($countryInfo)?>;
 		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery Â© <a href="http://cloudmade.com">CloudMade</a>'
@@ -89,7 +72,7 @@ foreach ($world as $collection) {
 		// get color depending on population density value
 		function getColor(id) {
 			var color;
-			/*$.ajax({
+			$.ajax({
 				async: false,
 				type: "GET",
 				url: "check.php",
@@ -102,7 +85,7 @@ foreach ($world as $collection) {
 					else
 						color = "#FF0000";
 				}
-			});*/
+			});
 			return color;
 		}
 	
@@ -119,7 +102,6 @@ foreach ($world as $collection) {
 	
 		function highlightFeature(e) {
 			var layer = e.target;
-	
 			layer.setStyle({
 				weight: 5,
 				color: '#666',
@@ -150,15 +132,15 @@ foreach ($world as $collection) {
 				click: zoomToFeature
 			});
 		}
-	
-		geojson = L.geoJson(worldData, {
+		
+		geojson = L.geoJson(CA.globals.data.world, {
 			style: style,
 			onEachFeature: onEachFeature
 		}).addTo(map);
 		
 		map.on('locationfound', onLocationFound);
 		map.on('locationerror', onLocationError);
-	
+		
 		map.locate({setView: true, maxZoom: 16});
 	});
 })(jQuery);
