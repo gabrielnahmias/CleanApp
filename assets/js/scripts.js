@@ -8,7 +8,8 @@ var CA = {
 			URL_CM: 'http://{s}.tile.cloudmade.com/d4fc77ea4a63471cab2423e66626cbb6/{styleId}/256/{z}/{x}/{y}.png',
 			URL_OSM: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			/*OSM_ATTRIB: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/
-		}
+		},
+		data: {}
 	},
 	utils: {}
 };
