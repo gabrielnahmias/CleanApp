@@ -1,0 +1,130 @@
+/* Responder Form
+ * Essentially, the form elements' styling needs to be "namespaced" by its wrapper
+ * so that other parts of the page are not affected by it (jQuery UI, etc.).
+ */
+
+#responder_form {
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+	#responder_form h2 {
+		border-bottom: 2px dashed #999999;
+		display: /*inline-*/block;
+		margin: 0 0 5px;
+		padding-bottom: 5px;
+	}	
+	#responder_form input,
+	#responder_form select,
+	#responder_form textarea {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	#responder_form input:not(.inline),
+	#responder_form select {
+		display: block;
+		width: 94%;
+	}
+	#responder_form select {
+		width: 100%;
+	}
+	#responder_form textarea {
+		max-height: 100px;
+		resize: none;
+		width: 279px !important;
+	}
+	#responder_form .inline + input,
+	#responder_form .inline + select,
+	#responder_form .inline + textarea {
+		margin: 0 0 5px !important;
+	}
+	#responder_form input[type=reset],
+	#responder_form input[type=submit] {
+		/*left: 50%;
+		margin-left: -97px;
+		position: absolute;*/
+		display: inline;
+		margin: 0;/*-2px 0 0;*/
+		padding: 3px;
+		width: 50%;
+	}
+	#responder_form input[type=submit] {
+		font-weight: bold;
+	}
+	#responder_form input:not([type=button]):not([type=reset]):not([type=submit]),
+	#responder_form select, #responder_form textarea {	
+		border: 1px solid #CCCCCC;
+		border-radius: 10px;
+		-icab-border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		-o-border-radius: 10px;
+		-ms-border-radius: 10px;
+		-khtml-border-radius: 10px;
+		font-size: 12px;
+		margin: 5px 0;
+		padding: 5px;
+		
+		transition-property: background, border, box-shadow, transform;
+		-moz-transition-property: background, border, box-shadow, transform;
+		-ms-transition-property: background, border, box-shadow, transform;
+		-webkit-transition-property: background, border, box-shadow, transform;
+		
+		transition-duration: .5s;
+		-moz-transition-duration: .5s;
+		-ms-transition-duration: .5s;
+		-webkit-transition-duration: .5s;
+	
+		transition-timing-function: ease-out;
+		-moz-transition-timing-function: ease-out;
+		-ms-transition-timing-function: ease-out;
+		-webkit-transition-timing-function: ease-out;
+		
+		/*transition: all .5s ease-out;
+		-moz-transition: all .5s ease-out;
+		-ms-transition: all .5s ease-out;
+		-webkit-transition: all .5s ease-out;
+		*/
+	}
+	#responder_form input:not([type=button]):not([type=reset]):not([type=submit]):focus:hover,
+	#responder_form textarea:focus:hover {
+		border: 1px solid #FEFFD2;
+	}
+	#responder_form input:not([type=button]):not([type=reset]):not([type=submit]):hover,
+	#responder_form select:hover, #responder_form textarea:hover {
+		background: #FFFDE6;
+		border: 1px solid #666666;
+	}
+	#responder_form input:not([type=button]):not([type=reset]):not([type=submit]):focus,
+	#responder_form textarea:focus {
+		background: #FEFFD2;
+		border: 1px solid #FEFFD2;
+		box-shadow: 0 0 3px 0 #6195C4;
+		outline: none;
+		transform: scale(1.02);
+		-moz-transform: scale(1.02);
+		-ms-transform: scale(1.02);
+		-webkit-transform: scale(1.02);
+	}
+	#responder_form select:focus {
+		background: #FFFDE6;
+		border: 1px solid #666666;
+		outline: none;
+	}
+	#responder_form input:-moz-ui-invalid, select:-moz-ui-invalid, textarea:-moz-ui-invalid {
+		background: #FFE8E8 !important;
+		box-shadow: none;
+	}
+	#responder_form input:-moz-ui-invalid:focus, select:-moz-ui-invalid:focus, textarea:-moz-ui-invalid:focus {
+		border: 1px solid #FFE8E8 !important;
+		box-shadow: 0 0 3px 0 #9C2A2A !important;
+	}
+	/*#responder_form input:required, #responder_form select:required, #responder_form textarea:required {
+		box-shadow: none;
+		background: #FFFFFF;
+	}*/
+
+.inline {
+	display: inline-block;
+	margin: 0 0 5px !important;
+	width: 42%;
+}
