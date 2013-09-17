@@ -7,3 +7,6 @@
 [submodule "assets/js/Console"]
 	path = assets/js/Console
 	url = git@github.com:gabrielnahmias/Console.js.git
+[submodule "assets/cls/Browser"]
+	path = assets/cls/Browser
+	url = git@github.com:gabrielnahmias/Browser.php.git
