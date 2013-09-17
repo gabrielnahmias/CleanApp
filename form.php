@@ -2,7 +2,7 @@
 require_once "common.php";
 
 if (isset($_GET['n']))
-	$name = filter($_GET['n']);
+	$name = Web::filter($_GET['n']);
 else
 	$name = NAME_RESPONDER;
 
@@ -26,6 +26,7 @@ $dateFieldType = ($browser["name"] == "chrome") ? "text" : "date";
 <link href="<?php echo DIR_CSS; ?>/normalize.min.css" rel="stylesheet" type="text/css">
 <!-- Custom Styling -->
 <link href="<?php echo DIR_CSS; ?>/styles.css" rel="stylesheet" type="text/css">
+<link href="<?php echo DIR_CSS; ?>/form.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(function() {
 	// If there are any selects on the page, uncomment this to make the default option gray.
@@ -35,7 +36,7 @@ $(function() {
 		else $(this).removeClass("empty")
 	});
 	$("select").change();*/
-	
+		
 	$("input[id^=duration_]").datepicker({
 		yearRange: '1925:<?php echo date("Y"); ?>',
 		changeMonth: true,
@@ -72,28 +73,26 @@ body {
 }
 </style>
 </head>
-<body>
-
-<div id="responder_form">
-	<h2><?=$name?></h2>
-    <form action="<?php print $_SERVER['PHP_SELF']; ?>" method="post">
-        <input type="text" id="name" name="name" placeholder="Name" pattern=".{3,}" required>
-        <input type="text" id="title" name="title" placeholder="Title" required>
-        <textarea id="address" name="address" placeholder="Address" cols="20" required></textarea>
-        <input type="email" id="email" name="email" placeholder="Email" required>
-        <input type="tel" id="phone" name="phone" placeholder="Phone Number">
-        <input class="inline" type="<?=$dateFieldType?>" id="duration_start" name="duration_start" placeholder="Start">
-        <input class="inline" type="<?=$dateFieldType?>" id="duration_end" name="duration_end" placeholder="End">
-        <!--<select>
-        	<option value="" selected>Select One...</option>
-        	<option>Test</option>
-        	<option>Test2</option>
-        	<option>Test3</option>
-        	<option>Test4</option>
-        </select>-->
-        <input type="reset" value="Reset"><input type="submit" value="Submit">
-    </form>
-</div>
-
+<body<?=$browser['classString']?>>
+    <div id="responder_form">
+        <h2><?=$name?></h2>
+        <form action="<?php print $_SERVER['PHP_SELF']; ?>" method="post">
+            <input type="text" id="name" name="name" placeholder="Name" pattern=".{3,}" required>
+            <input type="text" id="title" name="title" placeholder="Title" required>
+            <textarea id="address" name="address" placeholder="Address" cols="20" required></textarea>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+            <input class="inline" type="<?=$dateFieldType?>" id="duration_start" name="duration_start" placeholder="Start">
+            <input class="inline" type="<?=$dateFieldType?>" id="duration_end" name="duration_end" placeholder="End">
+            <!--<select>
+                <option value="" selected>Select One...</option>
+                <option>Test</option>
+                <option>Test2</option>
+                <option>Test3</option>
+                <option>Test4</option>
+            </select>-->
+            <input type="reset" value="Reset"><input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
