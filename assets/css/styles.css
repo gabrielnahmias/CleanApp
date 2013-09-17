@@ -24,6 +24,13 @@
     background: #EEEEEE;
     border: 1px solid #CCCCCC;
 }
+::-webkit-input-placeholder {
+    color: #999;
+}
+
+:-moz-placeholder {
+    color: #999;
+}
 body, html, #map, #wrapper {
     height: 100%;
 }
@@ -33,14 +40,14 @@ body {
     margin: 0;
 }
 body, input:not([type=text]) {
-	font: 12px Consolas, "Courier New", Geneva, sans-serif;
+	font: 12px Calibri, Arial, Helvetica, sans-serif;
 }
 h1 {
 	display: inline-block;
 	margin-right: 10px;
 }
 h1, textarea {
-	font-family: Consolas, "Courier New", Courier, monospace;
+	font-family: Calibri, Arial, Helvetica, sans-serif;
 }
 header {
 	/*margin: 0 0 5px 0;*/
@@ -55,12 +62,12 @@ input[type=submit] {
 	display: block;
 	width: 100%;
 }
+select option { color: black; }
+/*select option[value=""] { font-weight: bold; }*/
+select option[value=""], .empty { color: gray; }
 textarea {
 	font-size: 14px;
 	height: 200px;
-	max-width: 100%;
-	min-width: 100%;
-	width: 100%;
 }
 #input_wrapper {
 	border: 2px dashed #666666;
@@ -85,6 +92,10 @@ textarea {
 	height: 500px;
 	width: 500px;
 }*/
+
+.leaflet-popup-content {
+	overflow: auto;
+}
 
 /* Button */
 
@@ -128,15 +139,6 @@ textarea {
     .button.strong {
         font-weight: bold;
     }
-
-.normal {
-	color: #000000 !important;
-	font-style: normal !important;
-}
-.placeholder {
-	color: #AAAAAA;
-	font-style: italic !important;
-}
 
 /* jQuery UI Overrides */
 
