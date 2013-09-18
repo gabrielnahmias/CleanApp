@@ -11,8 +11,8 @@
 	#responder_form h2 {
 		border-bottom: 2px dashed #999999;
 		display: /*inline-*/block;
-		margin: 0 0 5px;
-		padding-bottom: 5px;
+		margin: 0 0 10px;
+		padding-bottom: 3px;
 	}	
 	#responder_form input,
 	#responder_form select,
@@ -30,7 +30,7 @@
 	#responder_form textarea {
 		max-height: 100px;
 		resize: none;
-		width: 279px !important;
+		width: 95%;
 	}
 	#responder_form .inline + input,
 	#responder_form .inline + select,
@@ -61,7 +61,7 @@
 		-ms-border-radius: 10px;
 		-khtml-border-radius: 10px;
 		font-size: 12px;
-		margin: 5px 0;
+		margin: 5px auto;
 		padding: 5px;
 		
 		transition-property: background, border, box-shadow, transform;
@@ -125,6 +125,13 @@
 
 .inline {
 	display: inline-block;
-	margin: 0 0 5px !important;
-	width: 42%;
+	margin: 0 2px 5px 2px !important;
+	width: 44%;
 }
+
+.iphone #responder_form input[type=date] {
+	width: 50%;
+}
+/*.chrome .inline {
+	width: 42%;
+}*/
