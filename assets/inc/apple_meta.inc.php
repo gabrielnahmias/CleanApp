@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, maximum-scale=0.6, minimum-scale=0.6, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <!-- Uncomment the following line to turn off telephone number formatting (click to call) -->
