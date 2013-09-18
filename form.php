@@ -6,8 +6,9 @@ if (isset($_GET['n']))
 else
 	$name = NAME_RESPONDER;
 
-$dateFieldType = ($browser["name"] == "chrome") ? "text" : "date";
+$dateFieldType = ($browser['iOS']) ? "date" : "text";
 
+//print_r($browser);
 ?><!doctype html>
 <html>
 <head>
@@ -36,8 +37,32 @@ $(function() {
 		else $(this).removeClass("empty")
 	});
 	$("select").change();*/
-		
-	$("input[id^=duration_]").datepicker({
+	function checkDateRange(start, end) {
+		// Parse the entries
+		var startDate = Date.parse(start),
+			endDate = Date.parse(end);
+		// Make sure they are valid
+		if (isNaN(startDate)) {
+			alert("The start date provided is not valid, please enter a valid date.");
+			return false;
+		}
+		if (isNaN(endDate)) {
+			alert("The end date provided is not valid, please enter a valid date.");
+			return false;
+		}
+		// Check the date range, 86400000 is the number of milliseconds in one day
+		var difference = (endDate - startDate) / (86400000 * 7);
+		if (difference < 0) {
+			alert("The start date must come before the end date.");
+			return false;
+		}
+		if (difference <= 1) {
+			alert("The range must be at least seven days apart.");
+			return false;
+		}
+		return true;
+	}
+	$("input[type=text][id^=duration_]").datepicker({
 		yearRange: '1925:<?php echo date("Y"); ?>',
 		changeMonth: true,
 		changeYear: true,
@@ -51,16 +76,17 @@ $(function() {
 			$date.val(sDate);
 		},
 		onSelect: function(sText, inst) {
-			Console.debug(arguments);
-			$(".ui-datepicker a").removeAttr("href");
+			var $this = $(this);
+			Console.debug(inst);
+			//$(".ui-datepicker a").removeAttr("href");
 			if (inst.inline) {
 				this._updateDatepicker(inst);
 			} else {
-				Console.debug(this);
-				this._hideDatepicker(true, this._get(inst, 'duration'));
+				//Console.debug(this);
+				$this.datepicker("hide");//true, this._get(inst, 'duration'));
 				this._lastInput = inst.input;
-				if (typeof(inst.input[0]) != 'object')
-					inst.input.select(); // restore focus
+				if (typeof(inst.input[0]) !== 'object')
+					inst.input.focus(); // restore focus
 				this._lastInput = null;	
 			}
 		}
