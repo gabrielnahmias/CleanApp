@@ -50,27 +50,35 @@ Web::debug($browser, "Browser Data");
 <script src="<?=DIR_JS?>/scripts.js" type="text/javascript"></script>
 <script type="text/javascript">
 // Set to global for debugging purposes.
-var map;
+//var map;
 <?php if (!CONFIG_DEBUG): ?>
 Console.setOption("enabled", false);
 <?php endif; ?>
 (function($) {
 	$(function() {
-		map  = L.map('map', {
-			attributionControl: false
-		});
-		var featureData = <?=json_encode($countryInfo)?>,
+		var ua = navigator.userAgent,
+			currentBrowser = {
+				firefox: /firefox/gi.test(ua),
+				ie: /msie/gi.test(ua),
+				ios: /i(phone|pad)/gi.test(ua),
+				webkit: /webkit/gi.test(ua),
+			},
+			featureData = <?=json_encode($countryInfo)?>,
+			map = L.map('map', {
+				attributionControl: false
+			}),
 			popup = L.popup({
 				keepInView: true
 			});
-		//Console.setOption("enabled", false);
+		
 		Console.debug(featureData);
+		
 		L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			minZoom: 4,
 			attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery Â© <a href="http://cloudmade.com">CloudMade</a>'
 		}).addTo(map);
-	
+		
 		function onLocationFound(e) {
 			var radius = e.accuracy / 2;
 			if (radius.hasDecimal())
@@ -151,6 +159,24 @@ Console.setOption("enabled", false);
 			onEachFeature: onEachFeature
 		}).addTo(map);
 		
+		// Instead of this, put a margin-bottom on the page and that should accomplish
+		// everything. Make it subclassed by the iPhone or and iPad page classes.
+		/*if (currentBrowser.ios) {
+			function orientationChange(e) {
+				/*if(e.orientation){
+					if(e.orientation == 'portrait'){
+						//
+					}
+					else if(e.orientation == 'landscape') {
+						//
+					}
+				}*//*
+				window.scrollTo(0, 1);
+			}
+			$("body").css({ height: "+=300" }).scrollTop(1);
+			$(window).bind("orientationchange", orientationChange);
+		}*/
+		
 		map.on('locationfound', onLocationFound);
 		map.on('locationerror', onLocationError);
 		
@@ -163,5 +189,10 @@ Console.setOption("enabled", false);
 	<div id="wrapper">
     	<div id="map"></div>
     </div>
+    <script type="text/javascript">
+	(function () {
+		
+	})();
+	</script>
 </body>
 </html>
