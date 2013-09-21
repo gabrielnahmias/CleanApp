@@ -3,10 +3,19 @@
  * so that other parts of the page are not affected by it (jQuery UI, etc.).
  */
 
+body {
+	margin: 0 10px !important; /* Pad for transitions */
+}
+body, #wrapper {
+	width: auto;
+}
+
 #responder_form {
+	display: table-cell;
 	position: relative;
 	text-align: center;
 	width: 100%;
+	vertical-align: middle;
 }
 	#responder_form h2 {
 		border-bottom: 2px dashed #999999;
@@ -122,6 +131,10 @@
 		box-shadow: none;
 		background: #FFFFFF;
 	}*/
+
+#wrapper {
+	display: table;
+}
 
 .inline {
 	display: inline-block;
