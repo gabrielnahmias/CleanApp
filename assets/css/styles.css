@@ -33,6 +33,7 @@
 }
 body, html, #map, #wrapper {
     height: 100%;
+	width: 100%;
 }
 body {
 	color: #666666;
@@ -69,6 +70,9 @@ textarea {
 	font-size: 14px;
 	height: 200px;
 }
+#content {
+	height: 100%;
+}
 #input_wrapper {
 	border: 2px dashed #666666;
 	border-width: 2px 0;
@@ -93,13 +97,27 @@ textarea {
 }
 
 /* Mobile Ovverides */
-.ipad body,
-.iphone body {
+/*body.ipad,
+body.iphone {
 	margin-bottom: 70px;
-}
+}*/
 .ipad .leaflet-container a.leaflet-popup-close-button,
 .iphone .leaflet-container a.leaflet-popup-close-button {
 	font-size: 20px;
+}
+/* Native Overflow Scrolling */
+.mobile-touch-overflow {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	-moz-overflow-scrolling: touch;
+	-o-overflow-scrolling: touch;
+	-ms-overflow-scrolling: touch;
+	overflow-scrolling: touch;
+}
+.mobile-touch-overflow,
+.mobile-touch-overflow * {
+	/* some level of transform keeps elements from blinking out of visibility on iOS */
+	-webkit-transform: rotateY(0);
 }
 
 /* Button */
