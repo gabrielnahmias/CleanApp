@@ -9,7 +9,23 @@ var CA = {
 			URL_OSM: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			/*OSM_ATTRIB: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'*/
 		},
-		data: {}
+		data: {},
+		obj: {
+			dialog: {
+				modal: {
+					buttons: {
+						"OK": function(e) {
+							$(this).dialog("close");
+						}
+					},
+					modal: true,
+					open: function(e) {
+						// Somehow, they seem to have a cursor...
+						$(this).disableSelection();
+					}
+				}
+			}
+		}
 	},
 	utils: {}
 };
