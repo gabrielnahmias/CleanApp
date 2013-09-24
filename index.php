@@ -40,6 +40,8 @@ Web::debug($br->isMobile() ? "Yes" : "No", "Is this browser mobile");
 <script src="<?=DIR_JQUI?>/jquery-ui-<?=VER_JQUI?>.min.js" type="text/javascript"></script>
 <!-- jQuery-shorty (my shortcut plugin) -->
 <script src="<?=DIR_JS?>/shorty/jquery.shorty.min.js" type="text/javascript"></script>
+<!-- jQuery-inputevent -->
+<script src="<?=DIR_JS?>/jquery.inputevent.min.js" type="text/javascript"></script>
 <!-- Leaflet -->
 <link rel="stylesheet" href="<?=DIR_LEAF?>/leaflet.css" type="text/css">
 <!--[if lte IE 8]><link rel="stylesheet" href="<?=DIR_LEAF?>/leaflet.ie.css" /><![endif]-->
@@ -199,7 +201,7 @@ Console.setOption("enabled", false);
 		// ^^^^ NOT WORKING ^^^^
 		// This is ok for now but it makes the page vertically off-center a bit. NEED
 		// A NEW SOLUTION.
-		if (currentBrowser.ios) {
+		/*if (currentBrowser.ios) {
 			function orientationChange(e) {
 				/*if(e.orientation){
 					if(e.orientation == 'portrait'){
@@ -208,7 +210,7 @@ Console.setOption("enabled", false);
 					else if(e.orientation == 'landscape') {
 						//
 					}
-				}*/
+				}*//*
 				window.scrollTo(0, 1);
 			}
 			if ("standalone" in window.navigator && !window.navigator.standalone) {
@@ -217,7 +219,7 @@ Console.setOption("enabled", false);
 						 .trigger("orientationchange");
 			}
 			//map.setView(new L.LatLng(map.getCenter()['lat'], map.getCenter()['lng']));
-		}
+		}*/
 		
 		/*map.on('dblclick', function(e){
 			alert('dblclick');
