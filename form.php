@@ -20,6 +20,8 @@ $dateFieldType = ($browser['mobile']) ? "date" : "text";	// Was $browser['iOS']
 <script src="<?php echo DIR_JS; ?>/jquery-<?=VER_JQ?>.min.js" type="text/javascript"></script>
 <!-- jQuery Center Plugin -->
 <script src="<?php echo DIR_JS; ?>/jquery.center.min.js" type="text/javascript"></script>
+<!-- jQuery-inputevent -->
+<script src="<?=DIR_JS?>/jquery.inputevent.min.js" type="text/javascript"></script>
 <!-- jQuery UI -->
 <link href="<?php echo DIR_JQUI; ?>/css/redmond/jquery-ui-<?=VER_JQUI?>.min.css" rel="stylesheet" type="text/css">
 <script src="<?php echo DIR_JQUI; ?>/jquery-ui-<?=VER_JQUI?>.min.js" type="text/javascript"></script>
@@ -48,6 +50,29 @@ $(function() {
 		var onShow = this._get(inst, 'onShow');
 		if (onShow)
 			onShow.apply((inst.input ? inst.input[0] : null));  // trigger custom callback
+	}
+	
+	function checkDates(e) {
+		// MINIMIZE VAR USAGE.
+		var $this = $(this),
+			$start = $("#duration_start"),
+			$end = $("#duration_end"),
+			which = (
+					  (/duration_/gi.test(inst.id)) ?
+						inst.id.replace("duration_", "") :
+						inst.id
+					);
+		//Console.debug(e);
+		//alert('changed');
+		alert('action taken');
+		if (!checkDateRange($start, $end, which)) {
+			$this.val("");
+			e.preventDefault();
+			return false;
+		} else {
+			$this.val($this.val());
+			return true;
+		}
 	}
 	
 	function checkDateRange($start, $end, current) {
@@ -143,17 +168,24 @@ $(function() {
 				$dates.removeAttr("href").css({cursor: "pointer"});
 		}
 	});
+	// For iPhone, mobile, etc.
+	// NOT WORKING (FIND jQuery-inputevent DOCUMENTATION!!!)
+	$("input[type=date][id^=duration_]").on("click", checkDates);
+	$("form").submit(checkDates);
 });
 </script>
 </head>
 <body<?=$browser['classString']?>>
 	<div id="wrapper">
 <?php
-if (isset($_POST['name'])): ?>
-Thanks for submitting responder data!
-<script type="text/javascript">
-$("iframe", top.document).height(15);
-</script>
+// Form data set—take action.
+if (isset($_POST['name'])):
+	mysql_connect("localhost", "root", "shitfuck1");
+?>
+		<section>Thanks for submitting responder data!</section>
+		<script type="text/javascript">
+        $("iframe", top.document).height(20);
+        </script>
 <?php
 else:
 ?>
